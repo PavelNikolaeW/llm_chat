@@ -1,0 +1,11 @@
+/* Widget global styles - isolated */
+#llm-gateway-widget-container {
+  all: initial;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+#llm-gateway-widget-container *,
+#llm-gateway-widget-container *::before,
+#llm-gateway-widget-container *::after {
+  box-sizing: border-box;
+}

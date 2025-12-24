@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  height: 100vh;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+.sidebar {
+  width: 280px;
+  background-color: var(--color-bg-secondary);
+  border-right: 1px solid var(--color-border);
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}

@@ -1,0 +1,46 @@
+/* Dark Theme (Darcula - PyCharm style) */
+[data-theme='dark'] {
+  /* Background colors */
+  --color-bg-primary: #2b2b2b;
+  --color-bg-secondary: #3c3f41;
+  --color-bg-tertiary: #313335;
+
+  /* Text colors */
+  --color-text-primary: #a9b7c6;
+  --color-text-secondary: #808080;
+  --color-text-muted: #606060;
+
+  /* Border */
+  --color-border: #323232;
+
+  /* Accent */
+  --color-accent: #589df6;
+  --color-accent-hover: #4a88d4;
+  --color-accent-light: #214283;
+
+  /* Message colors */
+  --color-user-message: #214283;
+  --color-assistant-message: #2b2b2b;
+
+  /* Status colors */
+  --color-success: #629755;
+  --color-success-light: #3c4a38;
+  --color-warning: #bbb529;
+  --color-warning-light: #4a4a28;
+  --color-error: #bc3f3c;
+  --color-error-light: #4a2c2b;
+  --color-info: #589df6;
+  --color-info-light: #214283;
+
+  /* Code - Darcula syntax highlighting */
+  --code-bg: #2b2b2b;
+  --code-text: #a9b7c6;
+  --code-keyword: #cc7832;
+  --code-string: #6a8759;
+  --code-number: #6897bb;
+  --code-comment: #808080;
+  --code-function: #ffc66d;
+  --code-class: #a9b7c6;
+  --code-variable: #9876aa;
+  --code-operator: #a9b7c6;
+}
