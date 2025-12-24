@@ -23,6 +23,11 @@ Two modes: Standalone App and Embedded Widget.
    - Format: `feat(epic-XX): description`
    - Include coverage report in commit message if significant
 
+4. **Create Pull Request**
+   - Create PR to main branch
+   - Include summary of changes
+   - Include test coverage info
+
 ### Test Coverage Requirements
 
 | Layer | Min Coverage |
@@ -33,9 +38,9 @@ Two modes: Standalone App and Embedded Widget.
 | Components | 70% |
 | Utils | 90% |
 
-### Commit Flow
+### Workflow
 ```
-Code Complete → Write Tests → Run Tests → Pass? → Commit
+Code Complete → Write Tests → Run Tests → Pass? → Commit → Create PR
                                             ↓
                                           Fail? → Fix Code → Re-run Tests
 ```
