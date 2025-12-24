@@ -5,6 +5,7 @@ export const useSettingsStore = create(
   persist(
     (set) => ({
       theme: 'light',
+      language: 'en',
       selectedModel: 'gpt-4',
       agentConfig: {
         temperature: 0.7,
@@ -13,6 +14,7 @@ export const useSettingsStore = create(
       selectedPreset: 'default',
 
       setTheme: (theme) => set({ theme }),
+      setLanguage: (language) => set({ language }),
       toggleTheme: () =>
         set((state) => ({
           theme: state.theme === 'light' ? 'dark' : 'light',
