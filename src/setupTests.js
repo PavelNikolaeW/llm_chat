@@ -14,6 +14,9 @@ const localStorageMock = {
 };
 global.localStorage = localStorageMock;
 
+// Mock scrollIntoView
+Element.prototype.scrollIntoView = jest.fn();
+
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

@@ -25,8 +25,8 @@ module.exports = {
     '!src/setupTests.js',
     '!src/app/**/*.jsx',
     '!src/widget/**/*.jsx',
-    '!src/components/**/*.jsx',
     '!src/store/index.js',
+    '!src/**/index.js',
   ],
   coverageThreshold: {
     global: {
