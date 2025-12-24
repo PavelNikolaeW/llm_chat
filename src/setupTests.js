@@ -1,4 +1,9 @@
 import '@testing-library/jest-dom';
+import { TextEncoder, TextDecoder } from 'util';
+
+// Polyfill TextEncoder/TextDecoder for streaming tests
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
 
 // Mock localStorage
 const localStorageMock = {
