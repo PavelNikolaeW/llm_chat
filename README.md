@@ -95,6 +95,8 @@ src/
 
 ## Widget Integration
 
+### Basic Usage
+
 ```html
 <script src="https://your-cdn.com/widget.js"></script>
 <script>
@@ -105,6 +107,53 @@ src/
     theme: 'light'            // or 'dark'
   });
 </script>
+```
+
+### Widget API
+
+```javascript
+// Initialize widget (idempotent - safe to call multiple times)
+LLMGatewayWidget.init(config);
+
+// Control widget visibility
+LLMGatewayWidget.open();      // Open chat panel
+LLMGatewayWidget.close();     // Close chat panel
+LLMGatewayWidget.toggle();    // Toggle open/closed
+LLMGatewayWidget.minimize();  // Minimize/expand panel
+
+// Send messages programmatically
+LLMGatewayWidget.send('Hello, how can you help?');
+
+// Clear conversation
+LLMGatewayWidget.clear();
+
+// Update authentication token
+LLMGatewayWidget.setToken('new-jwt-token');
+
+// Check if initialized
+LLMGatewayWidget.isInitialized(); // returns boolean
+
+// Destroy widget
+LLMGatewayWidget.destroy();
+
+// Subscribe to events
+const unsubscribe = LLMGatewayWidget.on('llm-widget:message-received', (data) => {
+  console.log('Message received:', data.message);
+});
+unsubscribe(); // Stop listening
+
+// Available events
+LLMGatewayWidget.events.MESSAGE_SENT
+LLMGatewayWidget.events.MESSAGE_RECEIVED
+LLMGatewayWidget.events.ERROR
+LLMGatewayWidget.events.OPEN
+LLMGatewayWidget.events.CLOSE
+```
+
+### Widget Version
+
+```javascript
+console.log(LLMGatewayWidget.version); // "1.0.0"
 ```
 
 ## Environment Variables
