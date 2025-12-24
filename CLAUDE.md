@@ -24,9 +24,37 @@ Two modes: Standalone App and Embedded Widget.
    - Include coverage report in commit message if significant
 
 4. **Create Pull Request**
-   - Create PR to main branch
-   - Include summary of changes
-   - Include test coverage info
+   - Create feature branch: `git checkout -b feat/epic-XX-description`
+   - Push branch: `git push -u origin feat/epic-XX-description`
+   - Create PR using `gh pr create`
+
+### Pull Request Template
+
+When creating PR, use this format:
+
+```
+Title: feat(epic-XX): Short description
+
+Body:
+## Summary
+- Brief description of what was implemented
+- Key features/components added
+
+## Changes
+- List of main files/modules changed
+- New dependencies (if any)
+
+## Test Coverage
+- Total tests: XXX
+- Coverage: XX%
+- All tests passing: ✅
+
+## Checklist
+- [ ] Tests written and passing
+- [ ] Coverage meets requirements (80%+)
+- [ ] No console errors/warnings
+- [ ] Code follows project patterns
+```
 
 ### Test Coverage Requirements
 
@@ -40,9 +68,12 @@ Two modes: Standalone App and Embedded Widget.
 
 ### Workflow
 ```
-Code Complete → Write Tests → Run Tests → Pass? → Commit → Create PR
-                                            ↓
-                                          Fail? → Fix Code → Re-run Tests
+1. Create feature branch: git checkout -b feat/epic-XX-description
+2. Implement epic
+3. Write tests
+4. Run tests (npm test -- --coverage)
+5. If pass → Commit → Push → Create PR
+   If fail → Fix code → Re-run tests
 ```
 
 ### Commands
