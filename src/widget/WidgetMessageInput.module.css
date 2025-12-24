@@ -1,0 +1,56 @@
+.form {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid var(--widget-border-color, #e0e0e0);
+  background-color: var(--widget-bg-secondary, #f5f5f5);
+}
+
+.input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid var(--widget-border-color, #e0e0e0);
+  border-radius: 20px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  background-color: var(--widget-bg-primary, #fff);
+  color: var(--widget-text-primary, #1a1a1a);
+}
+
+.input:focus {
+  border-color: var(--widget-accent, #2196f3);
+}
+
+.input:disabled {
+  background-color: var(--widget-bg-disabled, #f0f0f0);
+  cursor: not-allowed;
+}
+
+.input::placeholder {
+  color: var(--widget-text-secondary, #666);
+}
+
+.sendButton {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--widget-accent, #2196f3);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.sendButton:hover:not(:disabled) {
+  background-color: var(--widget-accent-hover, #1976d2);
+  transform: scale(1.05);
+}
+
+.sendButton:disabled {
+  background-color: var(--widget-disabled, #bdbdbd);
+  cursor: not-allowed;
+}
