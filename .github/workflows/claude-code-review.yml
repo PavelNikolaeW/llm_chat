@@ -20,28 +20,3 @@ jobs:
             Be concise.
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-
-name: Sync to GitVerse
- 
-on:
-  push:
-    branches:
-      - '**'  # Все ветки
-  delete:
-    branches:
-      - '**'
-
-jobs:
-  sync:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Полная история для корректной синхронизации
-
-      - name: Push to GitVerse
-        run: |
-          git remote add gitverse https://${{ secrets.GITVERSE_USERNAME }}:${{ secrets.GITVERSE_TOKEN }}@gitverse.ru/${{ secrets.GITVERSE_USERNAME }}/${{ github.event.repository.name }}.git
-            git push gitverse --all --force
-            git push gitverse --tags --force
