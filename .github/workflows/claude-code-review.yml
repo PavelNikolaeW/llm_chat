@@ -1,0 +1,6 @@
+direct_prompt: |
+  Review this pull request for bugs and security issues.
+
+  Only report found bugs and potential security vulnerabilities.
+
+  Be concise.
