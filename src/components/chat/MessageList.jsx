@@ -11,6 +11,8 @@ function MessageList({
   onLoadMore,
   hasMore = false,
   loading = false,
+  error = null,
+  onRetry,
 }) {
   const containerRef = useRef(null);
   const bottomRef = useRef(null);
@@ -114,6 +116,17 @@ function MessageList({
       ) : (
         <div className={styles.messages}>
           {renderMessages()}
+        </div>
+      )}
+
+      {error && (
+        <div className={styles.error}>
+          <span>{error}</span>
+          {onRetry && (
+            <button onClick={onRetry} className={styles.retryButton}>
+              Retry
+            </button>
+          )}
         </div>
       )}
 

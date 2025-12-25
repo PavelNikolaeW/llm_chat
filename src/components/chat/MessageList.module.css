@@ -84,3 +84,30 @@
 .scrollButton:hover {
   background-color: var(--color-bg-hover);
 }
+
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  margin: 0 1rem;
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius-md);
+  color: var(--color-error);
+}
+
+.retryButton {
+  padding: 0.5rem 1rem;
+  background-color: var(--color-error);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.retryButton:hover {
+  opacity: 0.9;
+}

@@ -5,6 +5,7 @@ import { Sidebar } from '../../components/sidebar';
 import { ChatHeader, MessageList, MessageInput } from '../../components/chat';
 import { useChatStore } from '../../store/chatStore';
 import { useUiStore } from '../../store/uiStore';
+import { useStreaming } from '../../hooks/useStreaming';
 
 function ChatPage() {
   const { dialogId } = useParams();
@@ -15,18 +16,21 @@ function ChatPage() {
     activeConversationId,
     messages,
     isLoading,
-    isStreaming,
     streamingMessageId,
     setActiveConversation,
     addConversation,
     deleteConversation,
-    addMessage,
   } = useChatStore();
 
+  const { sidebarOpen, toggleSidebar } = useUiStore();
+
   const {
-    sidebarOpen,
-    toggleSidebar,
-  } = useUiStore();
+    isStreaming,
+    error: streamingError,
+    startStreaming,
+    stopStreaming,
+    retry,
+  } = useStreaming();
 
   useEffect(() => {
     if (dialogId && dialogId !== activeConversationId) {
@@ -34,9 +38,12 @@ function ChatPage() {
     }
   }, [dialogId, activeConversationId, setActiveConversation]);
 
-  const handleSelectConversation = useCallback((id) => {
-    navigate(`/chat/${id}`);
-  }, [navigate]);
+  const handleSelectConversation = useCallback(
+    (id) => {
+      navigate(`/chat/${id}`);
+    },
+    [navigate]
+  );
 
   const handleCreateConversation = useCallback(() => {
     const newConversation = {
@@ -49,38 +56,64 @@ function ChatPage() {
     navigate(`/chat/${newConversation.id}`);
   }, [addConversation, navigate]);
 
-  const handleDeleteConversation = useCallback((id) => {
-    deleteConversation(id);
-    if (id === activeConversationId) {
-      const remaining = conversations.filter((c) => c.id !== id);
-      if (remaining.length > 0) {
-        navigate(`/chat/${remaining[0].id}`);
-      } else {
-        navigate('/');
+  const handleDeleteConversation = useCallback(
+    (id) => {
+      deleteConversation(id);
+      if (id === activeConversationId) {
+        const remaining = conversations.filter((c) => c.id !== id);
+        if (remaining.length > 0) {
+          navigate(`/chat/${remaining[0].id}`);
+        } else {
+          navigate('/');
+        }
       }
-    }
-  }, [deleteConversation, activeConversationId, conversations, navigate]);
+    },
+    [deleteConversation, activeConversationId, conversations, navigate]
+  );
 
-  const handleSendMessage = useCallback((content) => {
-    if (!activeConversationId) {
-      handleCreateConversation();
-      return;
-    }
+  const handleSendMessage = useCallback(
+    (content) => {
+      if (!activeConversationId) {
+        // Create new conversation first
+        const newConversation = {
+          id: `conv-${Date.now()}`,
+          title: content.slice(0, 30) + (content.length > 30 ? '...' : ''),
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        };
+        addConversation(newConversation);
+        setActiveConversation(newConversation.id);
+        navigate(`/chat/${newConversation.id}`);
 
-    const userMessage = {
-      id: `msg-${Date.now()}`,
-      role: 'user',
-      content,
-      timestamp: new Date().toISOString(),
-    };
-    addMessage(userMessage);
-  }, [activeConversationId, addMessage, handleCreateConversation]);
+        // Start streaming after state updates
+        setTimeout(() => {
+          startStreaming(content);
+        }, 0);
+      } else {
+        startStreaming(content);
+      }
+    },
+    [activeConversationId, addConversation, setActiveConversation, navigate, startStreaming]
+  );
 
   const handleStopStreaming = useCallback(() => {
-    // Will be implemented with streaming service
-  }, []);
+    stopStreaming();
+  }, [stopStreaming]);
 
-  const activeConversation = conversations.find((c) => c.id === activeConversationId);
+  const handleRetry = useCallback(() => {
+    const currentMessages = messages[activeConversationId] || [];
+    const lastUserMessage = [...currentMessages]
+      .reverse()
+      .find((m) => m.role === 'user');
+
+    if (lastUserMessage) {
+      retry(lastUserMessage.content);
+    }
+  }, [messages, activeConversationId, retry]);
+
+  const activeConversation = conversations.find(
+    (c) => c.id === activeConversationId
+  );
   const currentMessages = messages[activeConversationId] || [];
 
   return (
@@ -107,6 +140,8 @@ function ChatPage() {
           messages={currentMessages}
           streamingMessageId={streamingMessageId}
           loading={isLoading}
+          error={streamingError}
+          onRetry={handleRetry}
         />
 
         <MessageInput
