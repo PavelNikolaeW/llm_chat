@@ -3,9 +3,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import styles from './ChatPage.module.css';
 import { Sidebar } from '../../components/sidebar';
 import { ChatHeader, MessageList, MessageInput } from '../../components/chat';
+import { OfflineBanner } from '../../components/common';
 import { useChatStore } from '../../store/chatStore';
 import { useUiStore } from '../../store/uiStore';
-import { useStreaming } from '../../hooks/useStreaming';
+import { useStreaming, useOffline, useChatCache } from '../../hooks';
 
 function ChatPage() {
   const { dialogId } = useParams();
@@ -31,6 +32,9 @@ function ChatPage() {
     stopStreaming,
     retry,
   } = useStreaming();
+
+  const { isOffline, checkConnection } = useOffline();
+  const { isHydrated } = useChatCache();
 
   useEffect(() => {
     if (dialogId && dialogId !== activeConversationId) {
@@ -116,8 +120,17 @@ function ChatPage() {
   );
   const currentMessages = messages[activeConversationId] || [];
 
+  if (!isHydrated) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.loading}>Loading...</div>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.container}>
+      <OfflineBanner isOffline={isOffline} onRetry={checkConnection} />
       <Sidebar
         conversations={conversations}
         activeConversationId={activeConversationId}
