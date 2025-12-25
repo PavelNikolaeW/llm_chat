@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import ConversationList from './ConversationList';
 import { Button, Modal } from '../common';
@@ -14,6 +15,7 @@ function Sidebar({
   isOpen = true,
   onToggle,
 }) {
+  const navigate = useNavigate();
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [conversationToDelete, setConversationToDelete] = useState(null);
 
@@ -58,6 +60,15 @@ function Sidebar({
             onEdit={onEditConversation}
             loading={loading}
           />
+        </div>
+
+        <div className={styles.footer}>
+          <button
+            className={styles.settingsBtn}
+            onClick={() => navigate('/settings')}
+          >
+            Settings
+          </button>
         </div>
 
         {onToggle && (

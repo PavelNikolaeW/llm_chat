@@ -1,11 +1,23 @@
-/* Widget global styles - isolated */
+/* Widget CSS Isolation - Scoped styles */
 #llm-gateway-widget-container {
   all: initial;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  position: fixed;
+  z-index: 2147483647; /* Max z-index */
 }
 
 #llm-gateway-widget-container *,
 #llm-gateway-widget-container *::before,
 #llm-gateway-widget-container *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#llm-gateway-widget-container button {
+  font-family: inherit;
+}
+
+#llm-gateway-widget-container input {
+  font-family: inherit;
 }
